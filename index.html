@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>To Do List</title>
     <link rel="stylesheet" href="https://use.typekit.net/osy6eyh.css">
     <link rel="stylesheet" href="style.css">
 
@@ -13,26 +13,31 @@
 </head>
 
 <body>
-    <section class="listings">
-
-    </section>
-    <form method="get" class="form">
-            <input type="text" name="task" id="task" required>
+    <section class="wrapper">
+    <h1 class="main-heading">To do list</h1>
+    <div class="listings">
+            
+    </div>
+   <form method="get" class="form">
+            <p class="plusSign">+</p>
+            <div class="addCircle"></div>
+            <input type="text" name="task" id="task" placeholder="Add task" required>
             <input type="submit" value="Send">
-        </form>
+    </form>
 
 
-
-
+</section>
     <template class="template-task">
         <div class="listing">
             <label class="check-container"><span class="listing-text">Make something</span>
                 <input type="checkbox">
                 <span class="checkmark"></span>
-            </label>
+                </label>
+                <img class="delete" src="img/delete.png" alt="Delete">
         </div>
     </template>
     <script src="main.js"></script>
+
 </body>
 
 </html>

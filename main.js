@@ -1,3 +1,13 @@
+document.querySelector("input").addEventListener("focus", e =>{
+    document.querySelector(".plusSign").style.display = "none";
+    document.querySelector(".addCircle").style.display = "block";
+})
+document.querySelector("input").addEventListener("blur", e =>{
+    document.querySelector(".plusSign").style.display = "block";
+    document.querySelector(".addCircle").style.display = "none";
+})
+
+
 const Task = {
     task: "",
     status: "",
@@ -32,9 +42,10 @@ function appendTasks(taskArr) {
     const taskTemplate = document.querySelector(".template-task").content;
     const taskWrapper = document.querySelector(".listings");
     taskWrapper.innerHTML = "";
-
+    
     taskArr.forEach(task => {
     let clone = taskTemplate.cloneNode(true);
+    clone.querySelector(".delete").id = task._id;
     if (task.status == "done") {
         clone.querySelector(".check-container input").checked = true;
     }
@@ -43,7 +54,14 @@ function appendTasks(taskArr) {
         updateStatus(task)
     })
     taskWrapper.appendChild(clone);
+    
     });
+    document.querySelectorAll(".delete").forEach( button => {
+        button.addEventListener("click", e => {
+            removeTask(e,taskArr)
+        })
+    });
+    
 }
 
 function updateStatus(task) {
@@ -56,8 +74,38 @@ function setEventListeners() {
     const form = document.querySelector("form");
     form.addEventListener("submit", e => {
         addTask(form);
+        form.elements.task.value = "";
         e.preventDefault();
     });
+}
+
+function removeTask(e,taskArr) {
+   let taskId = e.target.id;
+    
+    let deleteLink = "https://todolist-245e.restdb.io/rest/todo/" + taskId;
+    fetch(deleteLink, {
+        method: "delete",
+        headers: {
+            "Content-Type": "application/json; charset=utf-8",
+            "x-apikey": "5d8c72e80e26877dd0577b4d",
+            "cache-control": "no-cache"
+        }
+      })
+        .then(res => res.json())
+        .then(data => {
+          console.log("data was deleted", data);
+        });
+    
+    let removedTask = taskArr.find(e => {
+        return e._id == taskId
+      })
+    
+    
+    let indexOfRemovedTask = taskArr.indexOf(removedTask);
+    console.log(removedTask);
+    taskArr.splice(indexOfRemovedTask, 1);
+   appendTasks(taskArr);  
+    
 }
 
 function addTask(form) {
@@ -82,7 +130,7 @@ function postToDB(data) {
             },
             body: postData
         })
-        .then(res => res.json())
+        .then(res => res.json());
 
 }
 

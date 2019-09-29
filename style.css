@@ -8,29 +8,106 @@
     --color-primary: #FFDC1D;
     --color-gray: #585752;
     --color-body: #FAFAFA;
+    --font-size-small : 16px;
+    --font-size-heading: 55px;
 }
 body{
     font-family: sofia-pro, sans-serif;
     color: var(--color-gray);
     background-color: var(--color-body);
 }
+.wrapper {
+   background-color: #FFF;
+    max-width: 1000px;
+    padding: 35px 70px ;
+    margin: 70px auto;
+    border-radius: 5px;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,.1),
+                0 4px 6px -2px rgba(0,0,0,.05);
+}
+.listings {
+    max-width: 900px;
+    margin: 0 auto;
+    
+}
+.listing {
+    position: relative;
+    padding:10px 35px;
+   font-size: var(--font-size-small);
+    user-select: none;
+    display: flex;
+   align-content: center;
+   border-bottom: solid 1px #E0E0E0;
+   position: relative;
+}
+.listing:hover .delete{
+    opacity: 1;
+ }
+.main-heading {
+    margin-bottom: 20px;
+    font-size: var(--font-size-heading);
+    color: var(--color-primary);
+}
+form {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-items: flex-start;
+    align-items: center;
+    
+    
+}
+.plusSign {
+    color: var(--color-primary);
+    margin-top: -12px;
+    margin-left: 3px;
+    font-size:30px;
+    
+}
+.addCircle {
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border: solid 1px var(--color-gray);
+    margin-left: 1px;
+    flex-shrink: 0;
+    display: none;
+}
 
+input[type="text"], textarea {
+    font-family: sofia-pro, sans-serif;
+    border: none;
+    background-color: #fff;
+    width: 100%;
+    height: 34px;
+    font-size: var(--font-size-small);
+    font-weight: 300;
+    margin-left: 18px;
+}
+input[type="text"]:not(:focus)::placeholder  {
+    color: var(--color-primary);
+}
+input[type="text"]:focus::placeholder  {
+    color: var(--color-gray);
+}
+input[type="submit"] {
+   display: none;
+}
+input[type="text"], textarea:focus {
+    outline: 0;
+}
 /* The check-container */
 .check-container {
     display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
+}
+.checkmark {
     cursor: pointer;
-    font-size: 22px;
-    user-select: none;
 }
 
 /* Hide the browser's default checkbox */
 .check-container input {
     position: absolute;
     opacity: 0;
-    cursor: pointer;
     height: 0;
     width: 0;
 }
@@ -38,23 +115,41 @@ body{
 /* Create a custom checkbox */
 .checkmark {
     position: absolute;
-    top: 0;
+    top: 12px;
     left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
+    height: 20px;
+    width: 20px;
     border-radius: 100%;
+    transition: all .1s ease-in;
 }
 
 /* On mouse-over, add a grey background color */
-.check-container:hover input~.checkmark {
-    background-color: #ccc;
-
+.checkbox:hover input~.checkmark {
+    border: solid 1px var(--color-primary);
+}
+.check-container:hover input:not(:checked)~.checkmark::after {
+    display: block;
+    border: solid  var(--color-primary);
+    border-width: 0 2px 2px 0;
+   top: 4px;
+   left: 7px;
+}
+.check-container:hover input:checked~.checkmark::after {
+    display: block;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+}
+.check-container:hover input:checked~.checkmark {
+   background-color: rgb(255, 230, 87);
+}
+.check-container input~.checkmark {
+    border: solid 1px var(--color-primary);
 }
 
 /* When the checkbox is checked, add a blue background */
 .check-container input:checked~.checkmark {
     background-color: var(--color-primary);
+    border: none;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -71,11 +166,19 @@ body{
 
 /* Style the checkmark/indicator */
 .check-container .checkmark:after {
-    left: 9px;
+    left: 8px;
     top: 5px;
-    width: 5px;
-    height: 10px;
+    width: 3px;
+    height: 7px;
     border: solid white;
-    border-width: 0 3px 3px 0;
+    border-width: 0 2px 2px 0;
     transform: rotate(45deg);
+}
+.delete {
+    width: 16px;
+    height: auto;
+    position: absolute;
+   right: 15px;
+   opacity: 0;
+   cursor: pointer;
 }
